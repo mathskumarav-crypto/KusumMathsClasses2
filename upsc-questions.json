@@ -1,0 +1,37 @@
+{
+  "questions": [
+    {
+      "year": 2020,
+      "number": 5,
+      "question": "If the ratio of two numbers is 3:5 and their sum is 64, what is the larger number?",
+      "options": ["24", "32", "40", "48"],
+      "correct": 2,
+      "explanation": "Sum of parts = 8, each part = 8, larger = 5 x 8 = 40.",
+      "youtube": "https://youtube.com/"
+    },
+    {
+      "year": 2020,
+      "number": 6,
+      "question": "A train travels 120 km in 2 hours. What is its average speed?",
+      "options": ["40 km/h", "50 km/h", "60 km/h", "80 km/h"],
+      "correct": 2,
+      "explanation": "Average speed = distance / time = 120 / 2 = 60 km/h.",
+      "youtube": "https://youtube.com/"
+    },
+    
+    {
+  "year": 2020,
+  "number": 7,
+  "question": "How many zeroes are there at the end of\nthe following product?\n1×5 ×10 ×15 × 20 × 25 × 30 × 35 × 40 × 45 × 50 × 55 × 60",
+  "options": [
+    "10",
+    "12",
+    "14",
+    "15"
+  ],
+  "correct": 0,
+  "explanation": "Explanation will be available soon!",
+  "youtube": "https://youtube.com/"
+}
+  ]
+}
