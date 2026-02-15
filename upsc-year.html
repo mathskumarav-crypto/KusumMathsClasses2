@@ -87,7 +87,7 @@
 
   async function loadQuestionsFromJSON() {
     try {
-      const response = await fetch('questions.json'); // change path if inside folder
+      const response = await fetch('upsc-questions.json'); // change path if inside folder
       const data = await response.json();
 
       questions = data[yearValue] || [];
@@ -191,6 +191,7 @@
 
 </body>
 </html>
+
 
 
 
