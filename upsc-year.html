@@ -15,6 +15,8 @@
   </script>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4735471815045410" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -31,8 +33,7 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="study-material.html">Study Material</a>
-    <a href="contents.html">UPSC CSAT</a>
-    <a href="enroll.html">Enroll</a>
+<a href="enroll.html">Enroll</a>
     <a href="index.html#courses">Courses</a>
     <a href="index.html#results">Results</a>
     <a href="index.html#contact">Contact</a>
@@ -61,137 +62,145 @@
 
         <div class="explain-bar" id="explainBar" hidden>
           <div class="explain-text" id="explainText">Explanation will appear here.</div>
-          <a class="answer-link" id="answerLink" href="#" target="_blank" rel="noopener">Watch Answer on YouTube</a>
+          <a class="answer-link" id="answerLink" href="#" target="_blank" rel="noopener">Watch Solution on YouTube</a>
         </div>
       </main>
     </div>
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const yearParam = params.get('year');
-  const yearValue = yearParam ? Number(yearParam) : 2024;
+  </section>
 
-  const questionList = document.getElementById('questionList');
-  const activeYear = document.getElementById('activeYear');
-  const activeQuestion = document.getElementById('activeQuestion');
-  const questionText = document.getElementById('questionText');
-  const optionsWrap = document.getElementById('options');
-  const explainText = document.getElementById('explainText');
-  const answerLink = document.getElementById('answerLink');
-  const explainBar = document.getElementById('explainBar');
-  const yearTitle = document.getElementById('yearTitle');
-  const questionCard = document.querySelector('.question-card');
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const yearParam = params.get('year');
+    const yearValue = yearParam ? Number(yearParam) : 2024;
+    const questionsPerYear = 80;
+    const selections = new Map();
+    const questionBank = new Map();
 
-  let currentQuestion = 1;
-  let questions = [];
-  const selections = new Map();
+    const questionList = document.getElementById('questionList');
+    const activeYear = document.getElementById('activeYear');
+    const activeQuestion = document.getElementById('activeQuestion');
+    const questionText = document.getElementById('questionText');
+    const optionsWrap = document.getElementById('options');
+    const explainText = document.getElementById('explainText');
+    const answerLink = document.getElementById('answerLink');
+    const explainBar = document.getElementById('explainBar');
+    const yearTitle = document.getElementById('yearTitle');
+    const questionCard = document.querySelector('.question-card');
 
-  async function loadQuestionsFromJSON() {
-    try {
-      const response = await fetch('upsc-questions.json'); // change path if inside folder
-      const data = await response.json();
+    let currentQuestion = 1;
 
-      questions = data[yearValue] || [];
+    function baseQuestion(number) {
+      return {
+        question: "",
+        options: ["Option A", "Option B", "Option C", "Option D"],
+        correct: 0,
+        explanation: "Answer explanation will appear here.",
+        youtube: "https://youtube.com/"
+      };
+    }
 
-      if (!questions.length) {
-        questionText.textContent = "No questions available for this year.";
-        return;
+    function getQuestion(number) {
+      const key = `${yearValue}-${number}`;
+      return questionBank.get(key) || baseQuestion(number);
+    }
+
+    function renderQuestions() {
+      questionList.innerHTML = '';
+      for (let i = 1; i <= questionsPerYear; i += 1) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'question-num';
+        btn.textContent = i;
+        if (i === currentQuestion) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          currentQuestion = i;
+          renderQuestions();
+          loadQuestion();
+          questionCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        questionList.appendChild(btn);
       }
+    }
 
+    function optionLetter(index) {
+      return String.fromCharCode(65 + index);
+    }
+
+    function loadQuestion() {
+      const data = getQuestion(currentQuestion);
+      activeYear.textContent = `Year ${yearValue}`;
+      activeQuestion.textContent = `Q${currentQuestion} of ${questionsPerYear}`;
+      questionText.textContent = data.question || "Select a question to start.";
+      optionsWrap.innerHTML = '';
+
+      data.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.textContent = `${optionLetter(idx)}. ${opt}`;
+        btn.addEventListener('click', () => {
+          selections.set(`${yearValue}-${currentQuestion}`, idx);
+          updateSelectionState(data, idx);
+          updateExplainBar(data, idx);
+        });
+        optionsWrap.appendChild(btn);
+      });
+
+      const stored = selections.get(`${yearValue}-${currentQuestion}`);
+      updateSelectionState(data, stored);
+      updateExplainBar(data, stored);
+    }
+
+    function updateSelectionState(data, selectedIndex) {
+      const buttons = optionsWrap.querySelectorAll('.option-btn');
+      buttons.forEach((btn, idx) => {
+        btn.classList.remove('correct', 'wrong', 'selected');
+        if (selectedIndex === undefined) return;
+        if (idx === selectedIndex) {
+          btn.classList.add('selected');
+          if (idx === data.correct) {
+            btn.classList.add('correct');
+          } else {
+            btn.classList.add('wrong');
+          }
+        }
+      });
+    }
+
+    function updateExplainBar(data, selectedIndex) {
+      const correctText = `${optionLetter(data.correct)}. ${data.options[data.correct]}`;
+      if (selectedIndex === undefined) {
+        explainBar.hidden = true;
+        explainText.textContent = '';
+      } else {
+        explainBar.hidden = false;
+        explainText.textContent = `Correct Answer: ${correctText} - ${String(data.explanation || "").replace(/\uFFFD/g, "").replace(/—|�/g, "-")}`;
+      }
+      answerLink.href = data.youtube;
+    }
+
+    function loadQuestionBank() {
+      return fetch('upsc-questions.json')
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data || !Array.isArray(data.questions)) return;
+          data.questions.forEach((item) => {
+            if (!item.year || !item.number) return;
+            const key = `${item.year}-${item.number}`;
+            questionBank.set(key, item);
+          });
+        })
+        .catch(() => {});
+    }
+
+    yearTitle.textContent = `UPSC PYQs ${yearValue}`;
+    loadQuestionBank().finally(() => {
       renderQuestions();
       loadQuestion();
-    } catch (error) {
-      console.error("Error loading JSON:", error);
-      questionText.textContent = "Failed to load questions.";
-    }
-  }
-
-  function renderQuestions() {
-    questionList.innerHTML = '';
-    for (let i = 1; i <= questions.length; i++) {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'question-num';
-      btn.textContent = i;
-
-      if (i === currentQuestion) btn.classList.add('active');
-
-      btn.addEventListener('click', () => {
-        currentQuestion = i;
-        renderQuestions();
-        loadQuestion();
-        questionCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-
-      questionList.appendChild(btn);
-    }
-  }
-
-  function optionLetter(index) {
-    return String.fromCharCode(65 + index);
-  }
-
-  function loadQuestion() {
-    const data = questions[currentQuestion - 1];
-
-    activeYear.textContent = `Year ${yearValue}`;
-    activeQuestion.textContent = `Q${currentQuestion} of ${questions.length}`;
-    questionText.textContent = data.question;
-    optionsWrap.innerHTML = '';
-
-    data.options.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'option-btn';
-      btn.textContent = `${optionLetter(idx)}. ${opt}`;
-
-      btn.addEventListener('click', () => {
-        selections.set(`${yearValue}-${currentQuestion}`, idx);
-        updateSelectionState(data, idx);
-        updateExplainBar(data, idx);
-      });
-
-      optionsWrap.appendChild(btn);
     });
-
-    const stored = selections.get(`${yearValue}-${currentQuestion}`);
-    updateSelectionState(data, stored);
-    updateExplainBar(data, stored);
-  }
-
-  function updateSelectionState(data, selectedIndex) {
-    const buttons = optionsWrap.querySelectorAll('.option-btn');
-
-    buttons.forEach((btn, idx) => {
-      btn.classList.remove('correct', 'wrong', 'selected');
-
-      if (selectedIndex === undefined) return;
-
-      if (idx === selectedIndex) {
-        btn.classList.add('selected');
-        btn.classList.add(idx === data.correct ? 'correct' : 'wrong');
-      }
-    });
-  }
-
-  function updateExplainBar(data, selectedIndex) {
-    if (selectedIndex === undefined) {
-      explainBar.hidden = true;
-      return;
-    }
-
-    const correctText = `${optionLetter(data.correct)}. ${data.options[data.correct]}`;
-    explainBar.hidden = false;
-    explainText.textContent = `Correct Answer: ${correctText} — ${data.answer}`;
-    answerLink.href = data.youtube;
-  }
-
-  yearTitle.textContent = `UPSC PYQs ${yearValue}`;
-  loadQuestionsFromJSON();
-</script>
-
-</body>
-</html>
-
-
+  </script>  <!-- Slim bottom credit bar -->
+  <footer class="bottom-bar">
+    <p>&copy; Rasheed Developers</p>
+  </footer></body></html>
 
 
