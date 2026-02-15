@@ -127,29 +127,44 @@
     }
 
     function loadQuestion() {
-      const data = getQuestion(currentQuestion);
-      activeYear.textContent = `Year ${yearValue}`;
-      activeQuestion.textContent = `Q${currentQuestion} of ${questionsPerYear}`;
-      questionText.textContent = data.question || "Select a question to start.";
-      optionsWrap.innerHTML = '';
+    const data = getQuestion(currentQuestion);
 
-      data.options.forEach((opt, idx) => {
+    // Update header info
+    activeYear.textContent = `Year ${yearValue}`;
+    activeQuestion.textContent = `Q${currentQuestion} of ${questionsPerYear}`;
+
+    // ────────────────────────────────────────────────
+    //    QUESTION TEXT – Split into readable rows
+    // ────────────────────────────────────────────────
+    let questionDisplay = data.question || "Select a question to start.";
+
+    
+    // Use innerHTML so <br> tags are rendered as line breaks
+    questionText.innerHTML = questionDisplay;
+
+    // ────────────────────────────────────────────────
+    //    OPTIONS
+    // ────────────────────────────────────────────────
+    optionsWrap.innerHTML = '';
+
+    data.options.forEach((opt, idx) => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'option-btn';
         btn.textContent = `${optionLetter(idx)}. ${opt}`;
         btn.addEventListener('click', () => {
-          selections.set(`${yearValue}-${currentQuestion}`, idx);
-          updateSelectionState(data, idx);
-          updateExplainBar(data, idx);
+            selections.set(`${yearValue}-${currentQuestion}`, idx);
+            updateSelectionState(data, idx);
+            updateExplainBar(data, idx);
         });
         optionsWrap.appendChild(btn);
-      });
+    });
 
-      const stored = selections.get(`${yearValue}-${currentQuestion}`);
-      updateSelectionState(data, stored);
-      updateExplainBar(data, stored);
-    }
+    // Restore previous selection (if any)
+    const stored = selections.get(`${yearValue}-${currentQuestion}`);
+    updateSelectionState(data, stored);
+    updateExplainBar(data, stored);
+}
 
     function updateSelectionState(data, selectedIndex) {
       const buttons = optionsWrap.querySelectorAll('.option-btn');
@@ -199,7 +214,6 @@
       loadQuestion();
     });
   </script>  <!-- Slim bottom credit bar -->
- 
-
+</body></html>
 
 
