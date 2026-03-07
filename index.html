@@ -1,565 +1,1247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kusum Maths Classes</title>
 
-<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<title>Kusum Maths Classes | UPSC CSAT 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<link rel="stylesheet" href="style.css">
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
 
-/* HERO */
-.hero{
+body{
+background:#f4f7fb;
+color:#1e293b;
+padding-bottom:60px;
+height:100%;
+overflow-x:hidden;
+}
+
+
+/* TOP BAR */
+.top-bar{
+
+background: linear-gradient(135deg,#4c1d95,#6d28d9,#4338ca);
+
+padding:24px 20px;
+
 text-align:center;
-padding:20px 20px;
-}
 
-.hero h2{
-font-size:34px;
-color:#3f51b5;
-margin-bottom:10px;
-}
+position:relative;
 
-.hero p{
-font-size:18px;
-color:#555;
-}
-
-/* CARD */
-.main{
-display:flex;
-justify-content:center;
-padding:40px 20px;
-}
-
-.card{
-background:white;
-width:100%;
-max-width:900px;
-border-radius:25px;
-box-shadow:0 20px 50px rgba(0,0,0,0.1);
-display:flex;
-flex-wrap:wrap;
 overflow:hidden;
+
 }
 
-.left{
-    flex:1;
-    padding:60px 40px;
-    background:linear-gradient(135deg,#5c6bc0,#3949ab);
-    color:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+/* smooth moving light */
+
+.top-bar::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:60%;
+height:100%;
+
+background:linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,0.35),
+transparent
+);
+
+transform:skewX(-25deg);
+
+animation:shine 7s infinite;
+
 }
 
-.left h3{
-    font-size:28px;
-    font-weight:800;
-    margin-bottom:25px;
-    line-height:1.4;
+@keyframes shine{
+
+0%{left:-120%;}
+60%{left:120%;}
+100%{left:120%;}
+
 }
 
-/* Pricing layout */
-.pricing{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    margin-bottom:20px;
+/* heading */
+
+.top-bar h1{
+
+font-size:36px;
+
+font-weight:900;
+
+letter-spacing:3px;
+
+color:#ffffff;   /* pure white */
+
+text-transform:uppercase;
+
+position:relative;
+
+z-index:2;
+
 }
 
-.original-price{
-    font-size:26px;
-    text-decoration:line-through;
-    opacity:0.8;
+/* underline accent */
+
+.top-bar h1::after{
+
+content:"";
+
+display:block;
+
+width:150px;
+
+height:4px;
+
+margin:12px auto 0;
+
+background:linear-gradient(90deg,#facc15,#f97316);
+
+border-radius:10px;
+
 }
 
-.badge{
-    background:linear-gradient(45deg,#ff9800,#ff5722);
-    color:white;
-    padding:8px 16px;
-    border-radius:25px;
-    font-size:14px;
-    font-weight:800;
-    letter-spacing:1px;
-    animation:pulseGlow 1.5s infinite;
-}
+/* mobile */
 
-/* Smooth glowing animation */
-@keyframes pulseGlow{
-    0%{
-        transform:scale(1);
-        box-shadow:0 0 0 rgba(255,87,34,0.6);
-    }
-    50%{
-        transform:scale(1.1);
-        box-shadow:0 0 20px rgba(255,87,34,0.8);
-    }
-    100%{
-        transform:scale(1);
-        box-shadow:0 0 0 rgba(255,87,34,0.6);
-    }
-}
+@media(max-width:768px){
 
+.top-bar h1{
 
-/* Offer text */
-.offer-text{
-    font-size:16px;
-    font-weight:600;
-    line-height:1.6;
-    opacity:0.95;
-}
-
-
-/* RIGHT */
-.right{
-flex:1;
-padding:50px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-/* ===== TIMER WRAPPER ===== */
-.timer-wrapper{
-    text-align:center;
-    margin-bottom:35px;
-}
-
-.watch-emoji{
-    font-size:60px;
-    margin-bottom:10px;
-}
-
-.timer-text{
-    font-size:20px;
-    font-weight:900;
-    color:#d32f2f;   /* RED TIMER */
-}
-
-/* ===== BUTTON COMMON STYLE ===== */
-.right button{
-    padding:14px;
-    border:none;
-    border-radius:30px;
-    font-weight:800;
-    font-size:16px;
-    transition:0.3s;
-    margin-bottom:18px;   /* GAP BETWEEN BUTTONS */
-}
-
-/* ===== GOOGLE MEET (Lighter Navy Gradient) ===== */
-.meet{
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
-    color:white;
-}
-
-.meet:hover{
-    background:linear-gradient(135deg,#2a5298,#3b6cb7);
-    transform:scale(1.05);
-}
-
-/* ===== YOUTUBE BUTTON (True YouTube Gradient) ===== */
-.youtube{
-    background:linear-gradient(45deg,#ff0000,#e60000,#cc0000);
-    color:white;
-}
-
-.youtube:hover{
-    transform:scale(1.05);
-}
-
-
-
-/* LIVE Glow */
-@keyframes glow{
-0%{box-shadow:0 0 5px #00c853;}
-50%{box-shadow:0 0 25px #00c853;}
-100%{box-shadow:0 0 5px #00c853;}
-}
-.live{
-animation:glow 1.2s infinite;
-}
-
-/* SOCIAL BAR */
-.social-bar{
-position:fixed;
-top:45%;
-right:0;
-transform:translateY(-50%);
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.social-bar a{
-display:flex;
-align-items:center;
-gap:12px;
-padding:12px 15px;
-width:180px;
-border-radius:30px 0 0 30px;
-color:white;
-text-decoration:none;
-transform:translateX(125px);
-transition:transform 0.35s ease;
-}
-
-.social-bar a:hover{
-transform:translateX(0);
-}
-
-/* Brand gradients */
-.youtube-bg{ background:linear-gradient(45deg,#ff0000,#cc0000); }
-.instagram-bg{ background:linear-gradient(45deg,#feda75,#d62976,#962fbf); }
-.facebook-bg{ background:linear-gradient(45deg,#1877f2,#0d47a1); }
-.telegram-bg{ background:linear-gradient(45deg,#0088cc,#005f99); }
-.whatsapp-bg{ background:linear-gradient(45deg,#25d366,#128c7e); }
-.x-bg{background:linear-gradient(45deg,#000000,#434343);}
-
-/* FOOTER CREDIT BAR */
-footer{
-    background:#3f51b5;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
-    font-weight:700;
-    font-size:14px;
-    position:relative;
-    z-index:1;
-}
-
-
-/* RESPONSIVE */
-@media(max-width:900px){
-.card{
-flex-direction:column;
-}
-.left,.right{
-padding:35px;
-}
-.hero h2{
 font-size:26px;
-}
-}
+letter-spacing:1px;
 
-
-/* ===== POPUP OVERLAY ===== */
-#classPopup{
-    position: fixed;          /* Stay fixed on screen */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    display: none;            /* Hidden by default */
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */
-    
-    background: rgba(0,0,0,0.6);  /* Dark transparent background */
-    z-index: 9999;            /* Above everything including credit bar */
 }
 
-/* ===== POPUP BOX ===== */
-.popup-content{
-    background: #ffffff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-    
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    animation: popupFade 0.3s ease-in-out;
 }
 
-/* ===== CLOSE BUTTON ===== */
-.popup-content button{
-    margin-top: 20px;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 6px;
-    background: #3f51b5;
-    color: white;
-    cursor: pointer;
+/* NAVBAR */
+
+.navbar{
+
+background: rgba(255,255,255,0.95);
+
+backdrop-filter: blur(8px);
+
+padding:16px 28px;
+
+display:flex;
+
+align-items:center;
+
+border-bottom:1px solid rgba(0,0,0,0.05);
+
 }
 
-/* ===== ANIMATION ===== */
-@keyframes popupFade{
-    from{
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to{
-        transform: scale(1);
-        opacity: 1;
-    }
+/* NAV LINKS */
+
+.nav-links{
+
+display:flex;
+
+align-items:center;
+
+gap:35px;
+
+width:100%;
+
+}
+
+/* LINKS */
+
+.nav-links a{
+
+position:relative;
+
+text-decoration:none;
+
+color:#334155;
+
+font-weight:600;
+
+font-size:15px;
+
+letter-spacing:0.4px;
+
+padding:6px 0;
+
+transition:color 0.3s ease;
+
+}
+
+/* animated underline */
+
+.nav-links a::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+bottom:-5px;
+
+width:0;
+
+height:2px;
+
+background:#6366f1;
+
+transition:width 0.3s ease;
+
+}
+
+.nav-links a:hover{
+
+color:#6366f1;
+
+}
+
+.nav-links a:hover::after{
+
+width:100%;
+
+}
+
+/* LOGIN BUTTON RIGHT SIDE */
+
+#login-open{
+
+margin-left:auto;   /* pushes it to right */
+
+padding:8px 20px;
+
+border-radius:20px;
+
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+
+color:white;
+
+font-weight:600;
+
+box-shadow:0 4px 12px rgba(99,102,241,0.4);
+
+}
+
+#login-open:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 6px 18px rgba(99,102,241,0.5);
+
+color:white;
+
+}
+
+/* HAMBURGER */
+
+.menu-toggle{
+
+display:none;
+
+font-size:24px;
+
+cursor:pointer;
+
+color:#334155;
+
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.navbar{
+flex-wrap:wrap;
+}
+
+.menu-toggle{
+display:block;
+}
+
+.nav-links{
+
+display:none;
+
+flex-direction:column;
+
+width:100%;
+
+gap:16px;
+
+margin-top:15px;
+
+background:white;
+
+padding:15px;
+
+border-radius:10px;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+
+}
+
+.nav-links.active{
+display:flex;
+}
+
+#login-open{
+margin-left:0;
+}
+
+}
+
+/* MAIN CONTAINER */
+/* MAIN HERO SECTION */
+
+.main-container{
+
+max-width:900px;
+
+margin:40px auto;
+
+padding:50px 40px;
+
+background:white;
+
+border-radius:22px;
+
+box-shadow:0 20px 60px rgba(0,0,0,0.08);
+
+text-align:center;
+
 }
 
 
-/* Default countdown style */
-#countdown{
-    font-size: 18px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+/* TITLE */
 
-/* Active countdown style (Red + Bigger) */
-.countdown-active{
-    color: #ff0000;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
+.course-title{
 
+font-size:36px;
 
-/* Popup Countdown Styling */
-.popup-countdown{
-    display: block;
-    margin-top: 15px;
-    font-size: 22px;
-    font-weight: 800;
-    color: #ff0000;
-    letter-spacing: 1px;
-    animation: pulseRed 1s infinite;
-}
+font-weight:800;
 
-/* Smooth Pulse Animation */
-@keyframes pulseRed{
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
+color:#1e293b;
+
+margin-bottom:15px;
+
 }
 
 
+/* TAGLINE */
 
+.course-tagline{
+
+font-size:18px;
+
+color:#64748b;
+
+margin-bottom:35px;
+
+max-width:650px;
+
+margin-left:auto;
+
+margin-right:auto;
+
+}
+
+
+/* FEATURES GRID */
+
+.course-features{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:16px;
+
+margin-bottom:35px;
+
+}
+
+.feature{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+background:#f8fafc;
+
+padding:14px 16px;
+
+border-radius:10px;
+
+font-weight:500;
+
+transition:0.3s;
+
+}
+
+.feature:hover{
+
+transform:translateY(-3px);
+
+background:#eef2ff;
+
+}
+
+.feature i{
+
+color:#6366f1;
+
+font-size:18px;
+
+}
+
+
+/* PRICE BOX */
+
+/* PRICE CONTAINER */
+
+.price-box{
+
+margin-bottom:25px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:14px;
+
+}
+
+
+/* OLD PRICE */
+
+.real-price{
+
+text-decoration:line-through;
+
+color:#94a3b8;
+
+font-size:22px;
+
+opacity:0.8;
+
+}
+
+
+/* OFFER PRICE */
+
+.offer-price{
+
+font-size:38px;
+
+font-weight:800;
+
+color:#16a34a;
+
+animation:pricePulse 2s infinite;
+
+}
+
+
+/* LIMITED OFFER BADGE */
+
+.offer-badge{
+
+background:linear-gradient(135deg,#ff9800,#ff5722);
+
+color:white;
+
+padding:6px 16px;
+
+border-radius:25px;
+
+font-size:13px;
+
+font-weight:700;
+
+letter-spacing:0.5px;
+
+animation:badgeGlow 2.5s infinite;
+
+}
+
+
+/* PRICE PULSE */
+
+@keyframes pricePulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.12);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+
+/* BADGE GLOW */
+
+@keyframes badgeGlow{
+
+0%{
+box-shadow:0 0 0 rgba(255,87,34,0.4);
+}
+
+50%{
+box-shadow:0 0 14px rgba(255,87,34,0.9);
+}
+
+100%{
+box-shadow:0 0 0 rgba(255,87,34,0.4);
+}
+
+}
+
+/* BUTTON */
+
+.course-buttons{
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.btn{
+
+padding:14px 26px;
+
+border-radius:30px;
+
+font-weight:700;
+
+text-decoration:none;
+
+color:white;
+
+transition:0.3s;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.youtube-btn{
+
+background:linear-gradient(135deg,#ff0000,#cc0000);
+
+}
+
+.youtube-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 25px rgba(255,0,0,0.3);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.course-features{
+
+grid-template-columns:1fr;
+
+}
+
+.course-title{
+
+font-size:28px;
+
+}
+
+}
+
+
+/* COMMON FLOAT BUTTON */
+
+.extreme-btn{
+
+position:fixed;
+
+bottom:80px;
+
+padding:14px 26px;
+
+border-radius:40px;
+
+text-decoration:none;
+
+font-weight:700;
+
+font-size:15px;
+
+color:white;
+
+z-index:1000;
+
+transition:all 0.3s ease;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+}
+
+/* LEFT WHATSAPP BUTTON */
+
+.contact-btn{
+
+left:25px;
+
+background:linear-gradient(135deg,#25d366,#128c7e);
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+}
+
+.contact-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 28px rgba(0,0,0,0.3);
+
+}
+
+/* RIGHT ENROLL BUTTON */
+
+.enroll-btn{
+
+right:25px;
+
+background:linear-gradient(135deg,#ff7a18,#ff4d00);
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+animation:softPulse 2.2s infinite;
+
+}
+
+@keyframes softPulse{
+
+0%{
+transform:scale(1);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+50%{
+transform:scale(1.06);
+box-shadow:0 12px 30px rgba(255,77,0,0.35);
+}
+
+100%{
+transform:scale(1);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+}
+
+.enroll-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 14px 35px rgba(255,77,0,0.4);
+
+}
+
+@media (max-width:768px){
+
+.extreme-btn{
+
+position:static;   /* removes fixed position */
+
+display:block;
+
+margin:12px auto;
+
+width:90%;
+
+text-align:center;
+
+}
+
+.contact-btn{
+
+margin-top:20px;
+
+}
+
+.enroll-btn{
+
+margin-bottom:20px;
+
+}
+
+}
+
+
+/* DESKTOP SOCIAL BAR */
+
+.social-media{
+
+position:fixed;
+
+top:50%;
+
+left:18px;
+
+transform:translateY(-50%);
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+z-index:900;
+
+}
+
+
+/* ICON STYLE */
+
+.social-media a{
+
+width:48px;
+
+height:48px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+font-size:18px;
+
+text-decoration:none;
+
+transition:all 0.35s ease;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+}
+
+
+/* HOVER EFFECT */
+
+.social-media a:hover{
+
+transform:translateY(-4px) scale(1.1);
+
+box-shadow:0 12px 28px rgba(0,0,0,0.35);
+
+}
+
+
+/* PLATFORM COLORS */
+
+.youtube{background:linear-gradient(135deg,#ff0000,#cc0000);}
+.facebook{background:linear-gradient(135deg,#1877f2,#0d47a1);}
+.instagram{background:linear-gradient(135deg,#feda75,#d62976,#962fbf);}
+.telegram{background:linear-gradient(135deg,#0088cc,#005f99);}
+.whatsapp{background:linear-gradient(135deg,#25d366,#128c7e);}
+.twitter{background:linear-gradient(135deg,#000,#434343);}
+
+
+/* MOBILE VERSION */
+
+@media(max-width:768px){
+
+.social-media{
+
+position:static;   /* important */
+
+display:flex;
+
+justify-content:center;
+
+flex-direction:row;
+
+margin-top: 50px;
+
+background:transparent;
+
+
+
+}
+
+}
+
+/* LOGIN POPUP */
+
+.login-popup{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.5);
+
+display:none;
+
+justify-content:center;
+align-items:center;
+
+z-index:2000;
+
+}
+
+.login-box{
+
+background:white;
+
+padding:30px;
+
+border-radius:12px;
+
+width:320px;
+
+text-align:center;
+
+}
+
+.login-box input{
+
+width:100%;
+
+padding:10px;
+
+margin:10px 0;
+
+border:1px solid #ddd;
+
+border-radius:6px;
+
+}
+
+.login-submit{
+
+width:100%;
+
+padding:10px;
+
+background:#2563eb;
+
+border:none;
+
+color:white;
+
+border-radius:6px;
+
+cursor:pointer;
+
+}
+
+.close-btn{
+
+position:absolute;
+
+margin-left:260px;
+
+font-size:22px;
+
+cursor:pointer;
+
+}
+
+.course-tagline{
+
+max-width:700px;
+
+margin-bottom:30px;
+
+color:#475569;
+
+font-size:18px;
+
+}
+
+
+.course-features{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:14px;
+
+margin-bottom:30px;
+
+}
+
+.feature{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+background:#f8fafc;
+
+padding:12px;
+
+border-radius:8px;
+
+font-weight:500;
+
+}
+
+.feature i{
+
+color:#2563eb;
+
+font-size:18px;
+
+}
+
+
+.batch-info{
+
+margin-bottom:25px;
+
+font-weight:600;
+
+color:#475569;
+
+}
+
+.course-buttons{
+
+display:flex;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+}
+
+.enroll-main{
+
+background:#f97316;
+
+}
+
+.youtube-btn{
+
+background:#ff0000;
+
+}
+
+@media(max-width:768px){
+
+.course-features{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+/* CREDIT BAR */
+
+.credit-bar{
+
+position:fixed;
+bottom:0;
+
+width:100%;
+
+background:#0f172a;
+
+color:#94a3b8;
+
+text-align:center;
+
+padding:15px;
+
+font-size:13px;
+
+
+
+}
 
 </style>
+
 </head>
 
 <body>
 
-    <div class="page-content">
 
-        <div class="top-header">
-                    <h1>Kusum Maths Classes</h1>
-                    <p>Dedicated to Excellence in UPSC CSAT 2026 Preparation</p>
-        </div>
+<div class="top-bar">
 
-        <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="exam.html">Exam Preparation</a>
-                <a href="study-material.html">Free Study Material</a>
-                <a href="contact.html">Contact Us</a>
-        </nav>
+<h1>KUSUM MATHS CLASSES</h1>
+
+</div>
 
 
-        <div class="hero">
-                <h2>Crack UPSC CSAT 2026 With Confidence 🚀</h2>
-                <p>Daily Live Mathematics Classes | Concepts + Practice + PYQs</p>
-        </div>
 
-        <div class="main">
-                <div class="card">
+<div class="navbar">
 
-                    <div class="left">
-                        <h3 style="text-align: center;">Complete Mathematics Program for</h3>
-                        <h3 style="text-align: center;">UPSC CSAT 2026</h3>
-                    
-                        <div class="pricing" style="display: flex; justify-content: center; gap: 15px;">
-                            <span class="original-price">₹2,999</span>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfexdrW5B09R-5MsNwqMjE9wLwKVAShmIF0yYvpVVtuz0BFqQ/viewform?usp=publish-editor" 
-                            target="_blank" 
-                            class="badge free-btn">
-                            FREE
-                            </a>
-                        </div>
+<div class="menu-toggle" id="menu-toggle">
+<i class="fas fa-bars"></i>
+</div>
 
+<div class="nav-links" id="nav-links">
 
-                        <p class="offer-text">
-                            Limited Period Offer – Enroll Today at No Cost and Start Your 
-                            Structured CSAT Preparation.
-                        </p>
-                    </div>
+<a href="#">Home</a>
+<a href="#">About</a>
+<a href="#">Courses</a>
+<a href="#">Free Study Material</a>
+<a href="#">PYQs</a>
+<a href="#">Contact</a>
 
-                <div class="right">
+<a href="#" id="login-open">Login</a>
 
-            
-                <div class="timer-wrapper">
-                    <div class="watch-emoji">⏰ </div>
-                    <div id="countdown" class="timer-text">
-                        Next Class In: --:--:--
-                    </div>
-                </div>
+</div>
 
-                <button id="meetBtn" class="meet"  >
-                    Join Google Meet Class
-                </button>
-
-                <button class="youtube" onclick="window.open('https://youtube.com/@mathskusumclasses','_blank')">
-                    Visit YouTube Channel
-                </button>
-
-            </div>
-
-        </div>
+</div>
 
 
-        <!-- SOCIAL BAR -->
-        <div class="social-bar">
 
-            <a href="https://youtube.com/@mathskusumclasses " target="_blank" class="youtube-bg">
-                <i class="fab fa-youtube"></i><span>YouTube</span>
-            </a>
+<div class="main-container">
 
-            <a href="https://www.instagram.com/kusumclasses1/" target="_blank" class="instagram-bg">
-                <i class="fab fa-instagram"></i><span>Instagram</span>
-            </a>
+<h2 class="course-title">UPSC CSAT 2026 Maths Mastery Program</h2>
 
-            <a href="https://www.facebook.com/profile.php?id=61587164842333" target="_blank" class="facebook-bg">
-                <i class="fab fa-facebook-f"></i><span>Facebook</span>
-            </a>
+<p class="course-tagline">
+Master Quantitative Aptitude for UPSC CSAT with structured learning,
+concept clarity and PYQ based strategy.
+</p>
 
-            <a href="https://web.telegram.org/k/#@kusumclasses" target="_blank" class="telegram-bg">
-                <i class="fab fa-telegram"></i><span>Telegram</span>
-            </a>
+<div class="course-features">
 
-            <a href="https://wa.me/917011904551" target="_blank" class="whatsapp-bg">
-                <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
-            </a>
+<div class="feature">
+<i class="fa-solid fa-book-open"></i>
+<span>Complete CSAT Maths Syllabus</span>
+</div>
 
-            <!-- New X Button -->
-            <a href="https://x.com/kusumclasses" target="_blank" class="x-bg">
-                <i class="fa-brands fa-x-twitter"></i><span>X</span>
-            </a>
+<div class="feature">
+<i class="fa-solid fa-chart-line"></i>
+<span>PYQs from 1995–2024</span>
+</div>
 
-        </div>
+<div class="feature">
+<i class="fa-solid fa-pen"></i>
+<span>Daily Practice Questions</span>
+</div>
 
-        <!-- Bottom CTA Buttons -->
-        <div class="bottom-cta">
+<div class="feature">
+<i class="fa-solid fa-clock"></i>
+<span>Daily Classes at 9 PM</span>
+</div>
 
-            <a href="tel:+917011904551" class="cta call-btn">
-                <i class="fa-solid fa-phone"></i>
-                +91-7011904551
-            </a>
+<div class="feature">
+<i class="fa-solid fa-graduation-cap"></i>
+<span>Concept + Shortcut Methods</span>
+</div>
 
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfexdrW5B09R-5MsNwqMjE9wLwKVAShmIF0yYvpVVtuz0BFqQ/viewform?usp=publish-editor" class="cta enroll-btn">
-                <i class="fa-solid fa-user-plus"></i>
-                Enroll Now
-            </a>
+<div class="feature">
+<i class="fa-solid fa-brain"></i>
+<span>CSAT Strategy & Exam Approach</span>
+</div>
 
-            </div>
-        </div>
+</div>
 
-        <div id="classPopup">
-            <div class="popup-content">
-                <p id="popupMessage"></p>
-                <button onclick="closePopup()">Close</button>
-            </div>
-        </div>
-       
-    </div>
+<div class="price-box">
 
-    <footer>
-            © 2026 Kusum Maths Classes. All Rights Reserved. Designed for UPSC CSAT 2026 Preparation.
-        </footer>
+<span class="real-price">₹4,999</span>
 
-        <script>
+<span class="offer-price">₹999</span>
 
-            const CLASS_HOUR = 21;       // 9 PM IST
-            const CLASS_END_HOUR = 22;   // 10 PM IST
-            const VALID_DAYS = [1,2,3,4,5,6];
+<span class="offer-badge">Limited Offer</span>
 
-            const meetBtn = document.getElementById("meetBtn");
-            const countdown = document.getElementById("countdown");
-            const popup = document.getElementById("classPopup");
-            const popupMessage = document.getElementById("popupMessage");
+</div>
 
-            let isLive = false;
+<div class="batch-info">
 
-            function getISTTime(){
-                const now = new Date();
-                return new Date(now.toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-            }
+<i class="fa-solid fa-calendar"></i>
+<span>New Batch Starting Soon</span>
 
-            function updateTime(){
+</div>
 
-                const ist = getISTTime();
-                const day = ist.getDay();
-                const hours = ist.getHours();
+<div class="course-buttons">
 
-                // ===== CHECK IF LIVE =====
-                if(VALID_DAYS.includes(day) && hours >= CLASS_HOUR && hours < CLASS_END_HOUR){
-                isLive = true;
-                countdown.style.display = "none";
-                meetBtn.classList.add("live");
-                } else {
-                isLive = false;
-                countdown.style.display = "block";
-                meetBtn.classList.remove("live");
-                countdown.classList.add("countdown-active");  // 🔴 Add red active style
-                }
+<a href="https://youtube.com/channel/UCuydLWKACcaijMUfPlFmjJw/" 
+class="btn youtube-btn" 
+target="_blank">
 
-                // ===== CALCULATE NEXT CLASS =====
-                let nextClass = new Date(ist);
-                nextClass.setHours(CLASS_HOUR,0,0,0);
+<i class="fa-brands fa-youtube"></i>
+Watch Free CSAT Classes
 
-                if(hours >= CLASS_END_HOUR){
-                    nextClass.setDate(nextClass.getDate() + 1);
-                }
+</a>
 
-                while(!VALID_DAYS.includes(nextClass.getDay())){
-                    nextClass.setDate(nextClass.getDate() + 1);
-                }
+</div>
 
-                const diff = nextClass - ist;
-
-                const h = Math.floor(diff/(1000*60*60));
-                const m = Math.floor((diff%(1000*60*60))/(1000*60));
-                const s = Math.floor((diff%(1000*60))/1000);
-
-                countdown.innerHTML = `Next Class In: ${h}h ${m}m ${s}s`;
-            }
-
-            setInterval(updateTime,1000);
-            updateTime();
+</div>
 
 
-            // ===== BUTTON CLICK CONTROL =====
-            meetBtn.addEventListener("click", function(e){
 
-                // Always stop default behavior
-                e.preventDefault();
+<a href="https://wa.me/917011904551" class="extreme-btn contact-btn">
 
-                if(isLive){
-                    // Only open meet during live time
-                    window.open("https://meet.google.com/opp-rejw-ztn","_blank");
+<i class="fab fa-whatsapp"></i> Chat with Us
 
-                } else {
-                    // Show popup instead
-                    popupMessage.innerHTML =
-                        "🕘 Please wait.<br><br>" +
-                        "The live class starts at <strong>9:00 PM IST</strong>.<br><br>" +
-                        "<span class='popup-countdown'>" + countdown.innerText + "</span>";
+</a>
 
-                    popup.style.display = "flex";
-                }
-            });
 
-            function closePopup(){
-                popup.style.display = "none";
-            }
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSfexdrW5B09R-5MsNwqMjE9wLwKVAShmIF0yYvpVVtuz0BFqQ/viewform?usp=header" 
+class="extreme-btn enroll-btn" 
+target="_blank">
 
-        </script>
+Enroll Now
+
+</a>
+
+
+<div class="social-media">
+
+<a href="https://youtube.com/channel/UCuydLWKACcaijMUfPlFmjJw" target="_blank" class="youtube">
+<i class="fab fa-youtube"></i>
+</a>
+
+<a href="https://www.facebook.com/profile.php?id=61587164842333" target="_blank" class="facebook">
+<i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.instagram.com/kusumclasses1/" target="_blank" class="instagram">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://t.me/kusumclasses" target="_blank" class="telegram">
+<i class="fab fa-telegram-plane"></i>
+</a>
+
+<a href="https://wa.me/917011904551" target="_blank" class="whatsapp">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<a href="https://x.com/kusumclasses" target="_blank" class="twitter">
+<i class="fab fa-x-twitter"></i>
+</a>
+
+</div>
+
+
+
+<div class="login-popup" id="login-popup">
+
+<div class="login-box">
+
+<span class="close-btn" id="login-close">&times;</span>
+
+<h3>Student Login</h3>
+
+<input type="email" placeholder="Email">
+
+<input type="password" placeholder="Password">
+
+<button class="login-submit">Login</button>
+
+</div>
+
+</div>
+
+
+
+<div class="credit-bar">
+
+© 2026 Kusum Maths Classes | Developed by Faisal Rasheed
+
+</div>
+
+
+
+<script>
+
+const toggle=document.getElementById("menu-toggle")
+const navLinks=document.getElementById("nav-links")
+
+toggle.onclick=()=>{
+
+navLinks.classList.toggle("active")
+
+}
+
+
+const loginOpen=document.getElementById("login-open")
+const loginPopup=document.getElementById("login-popup")
+const loginClose=document.getElementById("login-close")
+
+loginOpen.onclick=()=>{
+
+loginPopup.style.display="flex"
+
+}
+
+loginClose.onclick=()=>{
+
+loginPopup.style.display="none"
+
+}
+
+window.onclick=(e)=>{
+
+if(e.target==loginPopup){
+
+loginPopup.style.display="none"
+
+}
+
+}
+
+</script>
+
+
 </body>
 </html>
