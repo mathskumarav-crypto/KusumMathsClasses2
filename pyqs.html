@@ -1500,6 +1500,30 @@ background:#fee2e2;
 border-color:#ef4444;
 }
 
+.question-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.solution-btn{
+display:none;
+align-items:center;
+gap:8px;
+padding:8px 14px;
+border-radius:8px;
+background:linear-gradient(135deg,#ff0000,#cc0000);
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size:14px;
+}
+
+.solution-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 18px rgba(255,0,0,0.3);
+}
 </style>
 
 
@@ -1587,6 +1611,16 @@ border-color:#ef4444;
 <!-- QUESTION AREA -->
 
 <div id="main-card">
+
+<div class="question-header">
+<div id="q-title" style="font-weight:800;">
+UPSC CSAT Question #
+</div>
+
+<a id="solution-btn" class="solution-btn" target="_blank">
+<i class="fab fa-youtube"></i> Solution
+</a>
+</div>
 
 <div id="status">Select question</div>
 
@@ -1679,7 +1713,6 @@ appId: "1:93988675955:web:293632fc7568cb08e6a506"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
 window.fetchQuestion = async function(){
 
 const year = document.getElementById("year").value;
@@ -1703,10 +1736,31 @@ return;
 
 const data = snap.data();
 
+/* SET TITLE */
+document.getElementById("q-title").innerText =
+"UPSC CSAT " + year + " Question #" + qNo;
+
+/* QUESTION */
 document.getElementById("q-eng").innerHTML = data.question_eng;
 
 
-/* OPTION RENDERING */
+/* =========================
+   YOUTUBE SOLUTION BUTTON
+========================= */
+
+const solutionBtn = document.getElementById("solution-btn");
+
+if(data.solution_link){
+solutionBtn.href = data.solution_link;
+solutionBtn.style.display = "inline-flex";
+}else{
+solutionBtn.style.display = "none";
+}
+
+
+/* =========================
+   OPTIONS
+========================= */
 
 ['a','b','c','d'].forEach(key => {
 
@@ -1720,9 +1774,6 @@ opt.innerHTML = `
 <div class="opt-text">${data[key]}</div>
 `;
 
-
-/* OPTION CLICK */
-
 opt.onclick = () => {
 
 document.querySelectorAll(".option-row").forEach(el=>{
@@ -1730,13 +1781,9 @@ el.classList.remove("correct","wrong");
 });
 
 if(key === data.correct_ans){
-
 opt.classList.add("correct");
-
 }else{
-
 opt.classList.add("wrong");
-
 }
 
 };
@@ -1745,12 +1792,13 @@ list.appendChild(opt);
 
 });
 
+
+/* SHOW CONTENT */
 status.innerText = "";
 document.getElementById("quiz-content").style.display = "block";
 
 
-/* RENDER LATEX */
-
+/* LATEX RENDER */
 setTimeout(()=>{
 
 renderMathInElement(document.body,{
@@ -1765,13 +1813,10 @@ delimiters:[
 }
 
 catch(err){
-
 status.innerText = err.message;
-
 }
 
 }
-
 </script>
 
 
